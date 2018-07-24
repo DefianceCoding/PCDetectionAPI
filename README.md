@@ -2,6 +2,9 @@
 
 PLEASE READ THE CONTACT INFORMATION SECTION
 
+JAVADOCS CAN BE FOUND HERE
+https://defiancecoding.github.io/
+
 # REQUIREMENTS
 json-simple-1.1.1 (https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple/1.1.1) 
 
