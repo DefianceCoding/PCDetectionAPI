@@ -1,4 +1,4 @@
-package me.defiancecoding.pcdetection;
+package me.defiancecoding.antibot.api.proxycheck;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -15,7 +15,7 @@ import java.net.URLConnection;
 /**
  * Created by DefianceCoding on 12/21/2017. Updated 7/20/18 to /v2 API
  */
-public final class Pcdetection {
+public final class PCDetection {
 
     public String status;
     public String node;
@@ -60,11 +60,11 @@ public final class Pcdetection {
     private int useDays = 7;
     private String tag;
 
-    public Pcdetection(String key) {
+    public PCDetection(String key) {
         this.api_key = key;
     }
 
-    public Pcdetection(String key, int timeout) {
+    public PCDetection(String key, int timeout) {
         this.api_key = key;
         this.api_timeout = timeout;
     }
@@ -85,11 +85,10 @@ public final class Pcdetection {
      * @param var Boolean value to set if you will check for VPN's
      */
 
-    public void setUseVpn(boolean var){
-        if (var){
+    public void setUseVpn(boolean var) {
+        if (var) {
             useVpn = 1;
-        }
-        else {
+        } else {
             useVpn = 0;
         }
     }
@@ -100,11 +99,10 @@ public final class Pcdetection {
      * @param var Boolean value to set if you will check for the ASN
      */
 
-    public void setUseAsn(boolean var){
-        if (var){
+    public void setUseAsn(boolean var) {
+        if (var) {
             useAsn = 1;
-        }
-        else {
+        } else {
             useAsn = 0;
         }
     }
@@ -115,39 +113,38 @@ public final class Pcdetection {
      * @param var Boolean value to set if you will check nodes
      */
 
-    public void setUseNode(boolean var){
-        if (var){
+    public void setUseNode(boolean var) {
+        if (var) {
             useNode = 1;
-        }
-        else {
+        } else {
             useNode = 0;
         }
     }
 
     /**
      * When the time flag is supplied we will display how long this query took to be answered by our API excluding network overhead.
+     *
      * @param var Boolean value to set if you will check time it took to get results (note this doesn't count network overhead)
      */
 
-    public void setUseTime(boolean var){
-        if (var){
+    public void setUseTime(boolean var) {
+        if (var) {
             useTime = 1;
-        }
-        else {
+        } else {
             useTime = 0;
         }
     }
 
     /**
      * When the inf flag is set to 0 (to disable it) we will not run this query through our real-time inference engine. In the absense of this flag or if it's set to 1 we will run the query through our real-time inference engine.
+     *
      * @param var Boolean value to set if you will check IPs in real time
      */
 
-    public void setUseInf(boolean var){
-        if (var){
+    public void setUseInf(boolean var) {
+        if (var) {
             useInf = 1;
-        }
-        else {
+        } else {
             useInf = 0;
         }
     }
@@ -158,46 +155,46 @@ public final class Pcdetection {
      * @param var Boolean value to set if you will check Ports
      */
 
-    public void setUsePort(boolean var){
-        if (var){
+    public void setUsePort(boolean var) {
+        if (var) {
             usePort = 1;
-        }
-        else {
+        } else {
             usePort = 0;
         }
     }
 
     /**
      * When the seen flag is supplied we will display to you the most recent time we saw this IP Address operating as a proxy server.
+     *
      * @param var Boolean value to set if you will check last seen used as a proxy
      */
 
-    public void setUseSeen(boolean var){
-        if (var){
+    public void setUseSeen(boolean var) {
+        if (var) {
             useSeen = 1;
-        }
-        else {
+        } else {
             useSeen = 0;
         }
     }
 
     /**
      * When the days flag is supplied we will restrict our proxy results to between now and the amount of days you specify. For example if you supplied &days=2 we would only check our database for Proxies that we saw within the past 48 hours. By default without this flag supplied we search within the past 7 days.
+     *
      * @param var Number (int) value of how many days to go back in the database
      *            this flag is used for if checking for newer or even older based proxies
      */
 
-    public void setUseDays(int var){
+    public void setUseDays(int var) {
         useDays = var;
     }
 
     /**
-     *When the tag flag is supplied we will tag your query with the message you supply. You can supply your tag using the POST method and we recommend you do so.
+     * When the tag flag is supplied we will tag your query with the message you supply. You can supply your tag using the POST method and we recommend you do so.
      *
      * @param var String that allows you to add a tag to users dashboards stating where the lookup came from
      */
 
-    public void setTag(String var){
+    public void setTag(String var) {
         tag = var;
     }
 
@@ -220,7 +217,6 @@ public final class Pcdetection {
     }
 
     /**
-     *
      * This method is used in filling the variables. This must be called at least once!
      *
      * @param Ip IP to gather information on
@@ -230,7 +226,7 @@ public final class Pcdetection {
 
     public void parseResults(String Ip) throws IOException, ParseException {
         String query_url = this.get_query_url(Ip);
-        String query_result = this.query(query_url, this.api_timeout, "ProxyCheck-IO Java-Library");
+        String query_result = this.query(query_url, this.api_timeout);
 
         JSONParser parser = new JSONParser();
         JSONObject main = (JSONObject) parser.parse(query_result);
@@ -262,16 +258,16 @@ public final class Pcdetection {
      * @throws IOException
      */
 
-    public String getResponseAsString(String ip) throws IOException{
+    public String getResponseAsString(String ip) throws IOException {
         String query_url = this.get_query_url(ip);
-        String query_result = this.query(query_url, this.api_timeout, "ProxyCheck-IO Java-Library");
+        String query_result = this.query(query_url, this.api_timeout);
 
         return query_result;
     }
 
     /**
      * Generates the URL used for Query based on settings above
-     *
+     *fully you have fun
      * @param ip IP To query
      * @return String URL
      */
@@ -287,21 +283,21 @@ public final class Pcdetection {
      *
      * @param url       full based url from arguments given
      * @param timeout   timeout in milliseconds before api will give up
-     * @param userAgent Useragent from custom based web response for api to recognize
-     * @return GSON Response
+     * @return JSON Output of query
      * @throws MalformedURLException
      * @throws IOException
      */
 
-    public String query(String url, int timeout, String userAgent)
+    public String query(String url, int timeout)
             throws MalformedURLException, IOException {
         StringBuilder response = new StringBuilder();
         URL website = new URL(url);
         URLConnection connection = website.openConnection();
         connection.setConnectTimeout(timeout);
-        connection.setRequestProperty("User-Agent", userAgent);
-        connection.setDoOutput(true);
         connection.setDoInput(true);
+        connection.setDoOutput(true);
+        connection.setRequestProperty("User-Agent", "Defiance-AntiBot.v1.2.0");
+        connection.setRequestProperty("tag", "Defiance-AntiBot.v1.2.0");
         try (BufferedReader in = new BufferedReader(
                 new InputStreamReader(
                         connection.getInputStream()))) {
@@ -311,6 +307,4 @@ public final class Pcdetection {
         }
         return response.toString();
     }
-
-
 }
